@@ -1,0 +1,6 @@
+{
+  "name": "Best School Manager",
+  "description": "A complete Full-Stack multi-tenant School Management platform including accounts ledger spreadsheets, continuous assessment grading cards, and custom Google Gemini student performance comment generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

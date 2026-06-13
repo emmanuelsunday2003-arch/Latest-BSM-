@@ -1,0 +1,293 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System user profiles with role-based access control.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["super-admin", "school-admin", "teacher", "student", "parent"] },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role", "schoolId"]
+    },
+    "School": {
+      "title": "School",
+      "description": "Educational institution details in the multi-tenant SaaS.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "name": { "type": "string" },
+        "motto": { "type": "string" },
+        "address": { "type": "string" },
+        "contactDetails": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "subscriptionPlan": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["schoolId", "name", "status"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Student academic profile and personal properties.",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "name": { "type": "string" },
+        "dob": { "type": "string" },
+        "gender": { "type": "string" },
+        "classId": { "type": "string" },
+        "parentEmail": { "type": "string" },
+        "address": { "type": "string" },
+        "medicalInfo": { "type": "string" },
+        "emergencyContact": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["studentId", "name", "classId", "schoolId"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Teacher profile and assignments.",
+      "type": "object",
+      "properties": {
+        "teacherId": { "type": "string" },
+        "name": { "type": "string" },
+        "qualification": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "assignedClasses": { "type": "array" },
+        "assignedSubjects": { "type": "array" },
+        "photoUrl": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["teacherId", "name", "email", "schoolId"]
+    },
+    "Parent": {
+      "title": "Parent",
+      "description": "Parent profile with linked children.",
+      "type": "object",
+      "properties": {
+        "parentId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "linkedChildren": { "type": "array" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["parentId", "name", "email", "schoolId"]
+    },
+    "Class": {
+      "title": "Class",
+      "description": "Static representations of class streams.",
+      "type": "object",
+      "properties": {
+        "classId": { "type": "string" },
+        "name": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["classId", "name", "schoolId"]
+    },
+    "Result": {
+      "title": "Result",
+      "description": "Continuous Assessment & Exam results records.",
+      "type": "object",
+      "properties": {
+        "resultId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "classId": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "term": { "type": "string" },
+        "session": { "type": "string" },
+        "caScore": { "type": "number" },
+        "examScore": { "type": "number" },
+        "totalScore": { "type": "number" },
+        "grade": { "type": "string" },
+        "remark": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["resultId", "studentId", "classId", "subjectName", "term", "session", "caScore", "examScore", "totalScore", "schoolId"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Attendance registers marked by teachers.",
+      "type": "object",
+      "properties": {
+        "attendanceId": { "type": "string" },
+        "classId": { "type": "string" },
+        "date": { "type": "string" },
+        "records": { "type": "array" },
+        "schoolId": { "type": "string" },
+        "markedBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["attendanceId", "classId", "date", "records", "schoolId", "markedBy"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "Homework and learning activities.",
+      "type": "object",
+      "properties": {
+        "assignmentId": { "type": "string" },
+        "classId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["assignmentId", "classId", "subjectName", "title", "schoolId", "createdBy"]
+    },
+    "Fee": {
+      "title": "Fee",
+      "description": "Tuition or fee item templates.",
+      "type": "object",
+      "properties": {
+        "feeId": { "type": "string" },
+        "categoryName": { "type": "string" },
+        "amount": { "type": "number" },
+        "classId": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["feeId", "categoryName", "amount", "schoolId"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Student tuition payment history records.",
+      "type": "object",
+      "properties": {
+        "paymentId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "feeId": { "type": "string" },
+        "amountPaid": { "type": "number" },
+        "outstanding": { "type": "number" },
+        "date": { "type": "string" },
+        "status": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["paymentId", "studentId", "feeId", "amountPaid", "schoolId"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Daily school financial expense outflows.",
+      "type": "object",
+      "properties": {
+        "expenseId": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["expenseId", "category", "amount", "date", "schoolId"]
+    },
+    "Salary": {
+      "title": "Salary",
+      "description": "Staff payroll records.",
+      "type": "object",
+      "properties": {
+        "salaryId": { "type": "string" },
+        "staffId": { "type": "string" },
+        "staffName": { "type": "string" },
+        "role": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string" },
+        "date": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["salaryId", "staffId", "staffName", "amount", "status", "date", "schoolId"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "SaaS and school notifications and bulletins.",
+      "type": "object",
+      "properties": {
+        "announcementId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "targetRole": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["announcementId", "title", "message", "schoolId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles database mapping"
+    },
+    "schools/{schoolId}": {
+      "schema": "School",
+      "description": "Schools management records mapping"
+    },
+    "students/{studentId}": {
+      "schema": "Student",
+      "description": "Students database mapping"
+    },
+    "teachers/{teacherId}": {
+      "schema": "Teacher",
+      "description": "Teachers roster mapping"
+    },
+    "parents/{parentId}": {
+      "schema": "Parent",
+      "description": "Parents directory mapping"
+    },
+    "classes/{classId}": {
+      "schema": "Class",
+      "description": "Classes and classrooms roster mapping"
+    },
+    "results/{resultId}": {
+      "schema": "Result",
+      "description": "Grades and test scores mapping"
+    },
+    "attendance/{attendanceId}": {
+      "schema": "Attendance",
+      "description": "Daily registers records mapping"
+    },
+    "assignments/{assignmentId}": {
+      "schema": "Assignment",
+      "description": "Assignments records mapping"
+    },
+    "fees/{feeId}": {
+      "schema": "Fee",
+      "description": "Fee billing types records mapping"
+    },
+    "payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Tuition payment tracing records mapping"
+    },
+    "expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Outflow transaction logging mapping"
+    },
+    "salaries/{salaryId}": {
+      "schema": "Salary",
+      "description": "Staff salaries logs mapping"
+    },
+    "announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Institutional message board mapping"
+    }
+  }
+}
